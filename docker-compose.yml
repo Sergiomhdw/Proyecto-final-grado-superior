@@ -4,6 +4,7 @@ services:
     # restart: always
     environment: 
       MYSQL_DATABASE: proyecto
+      MYSQL_USER: root
       MYSQL_PASSWORD: root
       MYSQL_ROOT_PASSWORD: root
     volumes: 
@@ -18,39 +19,16 @@ services:
       context: .
       dockerfile: Dockerfile
     ports: 
-      - 8080:8080
+      - 8787:8787
     volumes: 
       - .:/proyecto
     depends_on:
       - base
+      
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
 volumes:
   .database:
-
-
-
-# version: "3.7"
-# services:
-#     db:
-#       image: mariadb
-#       volumes:
-#         - .dbdata/:/var/lib/mysql
-#       expose:
-#         - 3312
-#       ports:
-#         - "3308:3306"
-#       environment:
-#         MYSQL_ROOT_PASSWORD: root
-#         MYSQL_DATABASE: ibis
-#         MYSQL_PASSWORD: docker
-#     web:
-#       build:
-#         context: .
-#         dockerfile: Dockerfile
-#       ports: 
-#         - 8000:8000
-#       volumes: 
-#         - .:/ibis
-#       depends_on: 
-#         - db
-# volumes:
-#     .dbdata:
